@@ -21,7 +21,7 @@ public class Scene extends SceneObject {
 	public void createFlower(Vector4f position) {
 		Flower flower = new Flower(20);
 		flower.setParent(this);	
-		flower.getMatrix().translate(position.x,position.y,0.0f);
+		flower.getMatrix().scale(0.5f,0.5f,1).translate(position.x,position.y -0.5f,0.0f);
 	}
 
 	public void update(InputManager input, float dt) {

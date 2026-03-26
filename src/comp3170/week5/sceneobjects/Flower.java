@@ -20,6 +20,7 @@ public class Flower extends SceneObject {
 	private final float HEIGHT = 1.0f;
 	private final float WIDTH = 0.1f;
 	private Vector3f colour = new Vector3f(0f, 0.5f, 0f); // Dark Green
+	private Vector3f petalColour = new Vector3f(1.0f,0f,1.0f);
 
 	private Vector4f[] vertices;
 	private int vertexBuffer;
@@ -28,37 +29,48 @@ public class Flower extends SceneObject {
 
 	public Flower(int nPetals) {
 		shader = ShaderLibrary.instance.compileShader(VERTEX_SHADER, FRAGMENT_SHADER);		
-	
+		
+		//Create flower: stem + flower head
+		createStem(); 
+		createPetals(nPetals); 
+	}
+	private void createStem() {
 		// make the stem of the flower
 
-		// vertices for a wxh square with origin at the end
-		// 
-		//  (-w/2, h)     (w/2, h)		
-		//       2-----------3
-		//       | \         |
-		//       |   \       |
-		//       |     \     |
-		//       |       \   |
-		//       |         \ |
-		//       0-----*-----1
-		//  (-w/2, 0)     (w/2, 0)	
-		
-		//@formatter:off
-		vertices = new Vector4f[] {
-			new Vector4f(-WIDTH / 2,           0, 0, 1),
-			new Vector4f( WIDTH / 2,           0, 0, 1),
-			new Vector4f(-WIDTH / 2, HEIGHT, 0, 1),
-			new Vector4f( WIDTH / 2, HEIGHT, 0, 1),
-		};
-		//@formatter:on
-		vertexBuffer = GLBuffers.createBuffer(vertices);
-		
-	    indices = new int[] {
-		    	0, 1, 2,
-		    	3, 2, 1,
-		};
-		    
-		indexBuffer = GLBuffers.createIndexBuffer(indices);
+				// vertices for a wxh square with origin at the end
+				// 
+				//  (-w/2, h)     (w/2, h)		
+				//       2-----------3
+				//       | \         |
+				//       |   \       |
+				//       |     \     |
+				//       |       \   |
+				//       |         \ |
+				//       0-----*-----1
+				//  (-w/2, 0)     (w/2, 0)	
+				
+				//@formatter:off
+				vertices = new Vector4f[] {
+					new Vector4f(-WIDTH / 2,           0, 0, 1),
+					new Vector4f( WIDTH / 2,           0, 0, 1),
+					new Vector4f(-WIDTH / 2, HEIGHT, 0, 1),
+					new Vector4f( WIDTH / 2, HEIGHT, 0, 1),
+				};
+				//@formatter:on
+				vertexBuffer = GLBuffers.createBuffer(vertices);
+				
+			    indices = new int[] {
+				    	0, 1, 2,
+				    	3, 2, 1,
+				};
+				    
+				indexBuffer = GLBuffers.createIndexBuffer(indices);
+				
+	}
+	private void createPetals(int nPetals) {
+		FlowerHead flowerHead = new FlowerHead(nPetals, petalColour);
+		flowerHead.setParent(this);	
+		flowerHead.getMatrix().scale(0.2f,0.2f,1).translate(0, 4f,0.0f);
 	}
 	
 	public void drawSelf(Matrix4f mvpMatrix) {
