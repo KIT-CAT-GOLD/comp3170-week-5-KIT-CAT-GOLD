@@ -10,6 +10,7 @@ import comp3170.OpenGLException;
 import comp3170.IWindowListener;
 import comp3170.ShaderLibrary;
 import comp3170.Window;
+import comp3170.week5.sceneobjects.Camera;
 import comp3170.InputManager;
 
 import java.io.File;
@@ -66,6 +67,14 @@ public class Week5 implements IWindowListener {
 	
 	public void draw() {
 		update();
+		
+		//scene cam
+		Camera sceneCam = scene.sceneCam(); 
+		//get view matrix
+		viewMatrix = sceneCam.GetViewMatrix(mvpMatrix); 
+		//get projection matrix
+		//multiply 
+		//projectionMatrix.mul(viewMatrix,mvpMatrix); 
 	
 		glClearColor(87.0f/255.0f, 60.0f/255.0f, 23.0f/255.0f, 1.0f); // Dirt brown
 		glClear(GL_COLOR_BUFFER_BIT);		

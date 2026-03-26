@@ -81,6 +81,10 @@ public class FlowerHead extends SceneObject {
 		
 		petalColour = colour;
 	}
+	
+	private void drawPetals() {
+		
+	}
 
 	public void update(float dt) {
 		// TODO: Make the flower head rotate. (TASK 5)

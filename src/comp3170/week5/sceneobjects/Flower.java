@@ -70,7 +70,7 @@ public class Flower extends SceneObject {
 	private void createPetals(int nPetals) {
 		FlowerHead flowerHead = new FlowerHead(nPetals, petalColour);
 		flowerHead.setParent(this);	
-		flowerHead.getMatrix().scale(0.2f,0.2f,1).translate(0, 4f,0.0f);
+		flowerHead.getMatrix().scale(0.2f,0.2f,1).translate(0, 5f,0.0f);
 	}
 	
 	public void drawSelf(Matrix4f mvpMatrix) {

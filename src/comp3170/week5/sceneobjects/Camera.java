@@ -16,9 +16,15 @@ public class Camera extends SceneObject {
 	public Camera() {
 		
 	}
-	
+	float width; 
+	float height; 
 	public void resize(int w, int h) {
 		//TODO: Change the projection matrix when the window is resized. (TASK 2)
+		width = w; 
+		height = h; 
+		
+		float aspect = w/h; 
+		projectionMatrix.scaling(zoom*aspect,zoom,1f); 
 	}
 	
 	public Matrix4f GetViewMatrix(Matrix4f dest) {
@@ -27,6 +33,13 @@ public class Camera extends SceneObject {
 	}
 	
 	public Matrix4f GetProjectionMatrix(Matrix4f dest) {
+		//      [ sx  0   0 ]
+		// MS = [ 0   sy  0 ]
+		//      [ 0   0   1 ]
+//		projectionMatrix = getMatrix(); 
+//		projectionMatrix.m00(width / zoom);
+//		projectionMatrix.m11(height / zoom);
+		
 		return projectionMatrix.invert(dest);
 	}
 	
